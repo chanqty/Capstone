@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Capstone Title Generator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Josefin+Sans:wght@300&display=swap');
+
+    body {
+      font-family: 'Josefin Sans', Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      position: relative;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-top: 0;
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: #4CAF50;
+      color: #fff;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    .output-container {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .output {
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+    
+    body.dark-mode .container {
+      background-color: #444;
+      color: #fff;
+    }
+    
+    body.dark-mode h1 {
+      color: #fff;
+    }
+    
+    body.dark-mode .output {
+      background-color: #555;
+      color: #fff;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #999;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+      .button-container {
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Capstone Title Generator</h1>
+    <p style="text-align: center; font-size: 18px;">This Capstone Title Generator provides randomly generated project titles relevant to computer majors.</p>
+
+    <div class="output-container">
+      <h2>Generated Title:</h2>
+      <p class="output" id="output-title"></p>
+      <h2>Description:</h2>
+      <p class="output" id="output-description"></p>
+      <h2>Programming Languages:</h2>
+      <p class="output" id="output-languages"></p>
+      <h2>Implementation:</h2>
+      <p class="output" id="output-implementation"></p>
+    </div>
+
+    <div class="button-container">
+      <button onclick="generateTitle()">Generate Title</button>
+      <button onclick="toggleDarkMode()">
+        <span id="mode-icon">&#x1F31E;</span>
+      </button>
+    </div>
+    
+    <div class="output-container">
+      <h2>Number of Titles Generated:</h2>
+      <p class="output" id="output-num-generated">0</p>
+    </div>
+  </div>
+
+  <footer style="text-align: center; font-size: 18px; color: #999; margin-top: 20px;">
+    Made by Christian Saruna
+  </footer>
+
+  <script>
+    var titles = [
+      {
+        title: "A Comparative Analysis of Algorithms for Efficient Data Compression in Cloud Storage Systems",
+        description: "This capstone research aims to compare and analyze different algorithms used for data compression in cloud storage systems, with a focus on efficiency.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation involves implementing and evaluating various data compression algorithms, conducting performance benchmarks, and analyzing the results.",
+      },
+      {
+        title: "Developing a Secure Blockchain-Based Supply Chain Management System for Ensuring Product Authenticity",
+        description: "This capstone research focuses on designing and developing a blockchain-powered supply chain management system to ensure the authenticity of products and prevent counterfeiting.",
+        languages: ["Solidity", "JavaScript"],
+        implementation: "The implementation includes developing smart contracts, building a decentralized application, and testing the system.",
+      },
+      {
+        title: "Investigating the Use of Artificial Intelligence for Predictive Maintenance in Manufacturing Industries",
+        description: "This capstone research investigates the application of artificial intelligence techniques, such as machine learning and predictive analytics, for implementing predictive maintenance strategies in manufacturing industries.",
+        languages: ["Python"],
+        implementation: "The implementation involves collecting real-time sensor data, developing machine learning models, training and validating the models, and evaluating the effectiveness of predictive maintenance.",
+      },
+      {
+        title: "Exploring Natural Language Processing Techniques for Sentiment Analysis in Social Media",
+        description: "This capstone research explores different natural language processing techniques to analyze sentiment in social media data, with a focus on understanding public opinion and sentiment trends.",
+        languages: ["Python", "R"],
+        implementation: "The implementation includes data collection, preprocessing, feature extraction, sentiment analysis algorithms, and visualization of sentiment trends.",
+      },
+      {
+        title: "Designing an Intelligent Tutoring System for Programming Education",
+        description: "This capstone research focuses on designing an intelligent tutoring system that provides personalized programming education, helping learners improve their coding skills and understanding of programming concepts.",
+        languages: ["Java", "Python"],
+        implementation: "The implementation involves developing an interactive and adaptive tutoring system that analyzes learner performance, provides feedback, and adapts the learning materials.",
+      },
+      {
+        title: "Enhancing Cybersecurity in Web Applications through Vulnerability Analysis and Patching",
+        description: "This capstone research aims to enhancethe cybersecurity of web applications by performing vulnerability analysis, identifying potential security flaws, and implementing effective patching strategies.",
+        languages: ["JavaScript", "PHP"],
+        implementation: "The implementation includes conducting a thorough vulnerability analysis of web applications, identifying common security flaws such as cross-site scripting (XSS) and SQL injection, and developing and applying appropriate patches and security measures.",
+      },
+      {
+        title: "Analyzing Big Data for Predictive Analytics in E-commerce",
+        description: "This capstone research focuses on analyzing large volumes of data from e-commerce platforms to extract valuable insights and develop predictive models for customer behavior, product recommendations, and sales forecasting.",
+        languages: ["Python", "R"],
+        implementation: "The implementation includes data collection, data preprocessing, exploratory data analysis, building predictive models using machine learning algorithms, and evaluating the models' performance.",
+      },
+      {
+        title: "Developing a Mobile Health Application for Personalized Healthcare Monitoring",
+        description: "This capstone research involves designing and developing a mobile health application that allows users to monitor their health parameters, track fitness activities, and receive personalized health recommendations.",
+        languages: ["Java", "Swift"],
+        implementation: "The implementation includes developing a mobile app with features such as data collection from wearable devices, data visualization, personalized health recommendations, and integration with healthcare systems.",
+      },
+      {
+        title: "Exploring Augmented Reality for Interactive Educational Experiences",
+        description: "This capstone research explores the use of augmented reality (AR) technology to create interactive and immersive educational experiences, enhancing learning and engagement in various fields such as science, history, and art.",
+        languages: ["Unity", "C#"],
+        implementation: "The implementation involves designing and developing AR applications that overlay virtual content onto the real-world environment, creating interactive educational simulations, and evaluating user experiences and learning outcomes.",
+      },
+      {
+        title: "Designing a Recommendation System for Personalized Movie Recommendations",
+        description: "This capstone research focuses on designing a recommendation system that provides personalized movie recommendations to users based on their preferences, viewing history, and similar user profiles.",
+        languages: ["Python"],
+        implementation: "The implementation includes building recommendation algorithms such as collaborative filtering and content-based filtering, integrating user feedback, and evaluating the system's recommendation accuracy.",
+      },
+      {
+        title: "Improving Traffic Management Systems Using Internet of Things (IoT) Technology",
+        description: "This capstone research aims to improve traffic management systems by leveraging Internet of Things (IoT) technology to gather real-time traffic data, optimize traffic flow, and enhance road safety.",
+        languages: ["Python", "C++"],
+        implementation: "The implementation includes deploying IoT devices for traffic data collection, developing algorithms for traffic analysis and prediction, and integrating the system with traffic control infrastructure.",
+      },
+      {
+        title: "Building a Cybersecurity Training Platform for Simulated Cyber Attacks",
+        description: "This capstone research involves developing a cybersecurity training platform that allows users to simulate and experience various types of cyber attacks, helping them enhance their skills in identifying, preventing, and responding to cyber threats.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes building a simulated environment for cyber attacks, creating different attack scenarios, providing interactive training modules, and tracking users' progress and performance.",
+      },
+      {
+        title: "Investigating the Application of Machine Learning in Fraud Detection for Financial Transactions",
+        description: "This capstone research investigates the use of machine learning algorithms and techniques for fraud detection in financial transactions, aiming to develop accurate and efficient models for identifying fraudulent activities.",
+        languages: ["Python", "R"],
+        implementation: "The implementation involves collecting and preprocessing financial transaction data, applying machine learning algorithms for fraud detection, and evaluating the models' performance in detecting fraudulent transactions.",
+      },
+      {
+        title: "Designing a Smart Irrigation System for Efficient Water Management in Agriculture",
+        description: "This capstone research focuses on designing a smart irrigation system that utilizes sensors and data analytics to optimize water usage in agriculture, improving crop yields and reducing water waste.",
+        languages: ["Arduino", "Python"],
+        implementation: "The implementation includes deploying soil moisture sensors, developing algorithms for automated irrigation control, integrating weather data, and analyzing crop water requirements.",
+      },
+      {
+        title: "Exploring Machine Learning Techniques for Automated Stock Market Trading",
+        description: "This capstone research explores the application of machine learning techniques, such as neural networks and reinforcement learning, for automated stock market trading, aiming to develop models that can make informed trading decisions based on market trends and historical data.",
+        languages: ["Python"],
+        implementation: "The implementation involves collecting and preprocessing stock market data, training machine learning models for predicting stock prices or market trends, and developing trading strategies based on the models' predictions.",
+      },
+      {
+        title: "Developing a Virtual Reality Simulation for Training and Education in Medical Field",
+        description: "This capstone research focuses on developing a virtual reality simulation platform that provides immersive training and educational experiences in the medical field, allowing healthcare professionals and students to practice medical procedures and scenarios in a realistic virtual environment.",
+        languages: ["Unity", "C#"],
+        implementation: "The implementation includes designing and developing virtual reality environments, integrating interactive medical scenarios, and providing real-time feedback and assessment for users.",
+      },
+      {
+        title: "Investigating the Use of Machine Learning in Credit Scoring and Risk Assessment",
+        description: "This capstone research investigates the application of machine learning algorithms and techniques for credit scoring and risk assessment in the finance industry, aiming to develop accurate and reliable models for predicting creditworthiness and assessing the risk of lending.",
+        languages: ["Python", "R"],
+        implementation: "The implementation involves collecting and preprocessing credit data, training machine learning models for credit scoring and risk assessment, and evaluating the models' performance and fairness.",
+      },
+      {
+        title: "Designing a Mobile App for Mental Health Monitoring and Support",
+        description: "This capstone research involves designing and developing a mobile application that helps monitor and support mental health, providing features such as mood tracking, stress management techniques, access to mental health resources, and personalized support.",
+        languages: ["Java", "Swift"],
+        implementation: "The implementation includes developing a mobile app with user-friendly interfaces, integrating mood tracking features, implementing stress management techniques, and connecting users with mental health resources and support networks.",
+      },
+      {
+        title: "Enhancing User Experience in Web Applications through User Interface Design and Usability Testing",
+        description: "This capstone research focuses on enhancing the user experience of web applications through effective user interface design principles and usability testing techniques, aiming to improve user satisfaction, engagement, and task efficiency.",
+        languages: ["HTML", "CSS", "JavaScript"],
+        implementation: "The implementation includes conducting user research, designing user-friendly interfaces, implementing responsive design techniques, and conducting usability testing to identifyand address usability issues.",
+        languages: ["HTML", "CSS", "JavaScript"],
+        implementation: "The implementation includes conducting user research, designing user-friendly interfaces, implementing responsive design techniques, and conducting usability testing to identify and address usability issues.",
+      },
+      {
+        title: "Developing an Intelligent Chatbot for Customer Support and Assistance",
+        description: "This capstone research involves developing an intelligent chatbot that can understand and respond to user queries, providing automated customer support and assistance in various domains such as e-commerce, banking, or healthcare.",
+        languages: ["Python", "JavaScript"],
+        implementation: "The implementation includes designing and training natural language processing models, integrating the chatbot into web or mobile applications, and evaluating its performance and user satisfaction.",
+      },
+      {
+        title: "Building a Recommender System for Personalized Music Recommendations",
+        description: "This capstone research focuses on building a recommender system that provides personalized music recommendations to users based on their musical preferences, listening history, and similar user profiles.",
+        languages: ["Python"],
+        implementation: "The implementation includes building recommendation algorithms such as collaborative filtering or content-based filtering, processing and analyzing music metadata, and integrating user feedback to improve recommendation accuracy.",
+      },
+      {
+        title: "Designing a Smart Home Automation System for Energy Efficiency and Convenience",
+        description: "This capstone research aims to design a smart home automation system that enables efficient control and management of various devices, optimizing energy consumption, and providing enhanced convenience for homeowners.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation involves developing a central control system, integrating smart devices and sensors, designing automation rules and schedules, and evaluating the system's energy-saving capabilities.",
+      },
+      {
+        title: "Investigating Deep Learning Approaches for Object Detection and Recognition in Autonomous Vehicles",
+        description: "This capstone research investigates the application of deep learning techniques for object detection and recognition tasks in autonomous vehicles, aiming to develop models that can accurately identify and track objects in real-time.",
+        languages: ["Python", "TensorFlow"],
+        implementation: "The implementation involves collecting and preprocessing video or LiDAR data, training deep learning models such as convolutional neural networks (CNN) or recurrent neural networks (RNN), and deploying the models in autonomous vehicle systems.",
+      },
+      {
+        title: "Developing a Smart Grid System for Efficient Energy Distribution and Management",
+        description: "This capstone research focuses on developing a smart grid system that leverages advanced metering infrastructure, data analytics, and control algorithms to optimize energy distribution, reduce power losses, and enhance overall grid efficiency.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes deploying smart meters and sensors, developing algorithms for load balancing and power optimization, integrating renewable energy sources, and analyzing grid performance.",
+      },
+      {
+        title: "Exploring Machine Learning Techniques for Sentiment Analysis in Customer Reviews",
+        description: "This capstone research explores machine learning techniques for sentiment analysis of customer reviews, aiming to develop models that can automatically analyze and classify the sentiment expressed in textual reviews.",
+        languages: ["Python", "R"],
+        implementation: "The implementation involves collecting and preprocessing customer review data, building machine learning models such as support vector machines (SVM) or recurrent neural networks (RNN), and evaluating the models' sentiment classification performance.",
+      },
+      {
+        title: "Designing an Intelligent Recommendation System for Personalized Online Shopping",
+        description: "This capstone research focuses on designing an intelligent recommendation system that provides personalized product recommendations to online shoppers, based on their browsing history, purchase behavior, and similar user profiles.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes building recommendation algorithms such as collaborative filtering or association rule mining, integrating product metadata and user data, and evaluating the system's recommendation accuracy and effectiveness.",
+      },
+      {
+        title: "Improving Fraud Detection in Online Financial Transactions Using Machine Learning",
+        description: "This capstone research aims to improve fraud detection in online financial transactions by applying machine learning algorithms to identify suspicious patterns and behaviors, enhancing the security and trustworthiness of online payment systems.",
+        languages: ["Python", "R"],
+        implementation: "The implementation involves collecting and preprocessing transaction data, training machine learning models such as random forests or gradient boosting, and evaluating the models' fraud detection performance.",
+      },
+      {
+        title: "Developing a Computer Vision System for Object Tracking and Recognition in Video Surveillance",
+        description: "This capstone research involves developing a computer vision system that can track and recognize objects in video surveillance footage, enhancing the capabilities of surveillance systems for security and monitoring applications.",
+        languages: ["Python", "OpenCV"],
+        implementation: "The implementation includes developing algorithms for object detection and tracking, integrating computer vision libraries such as OpenCV, and evaluating the system's performance in real-world surveillance scenarios.",
+      },
+      {
+        title: "Investigating the Use of Deep Reinforcement Learning in Robotics for Complex Tasks",
+        description: "This capstone research investigates the application of deep reinforcement learning techniques in robotics to enable robots to perform complex tasks, learn from interactions with the environment, and adapt to dynamic situations.",
+        languages: ["Python", "ROS"],
+        implementation: "The implementation involves training deep reinforcement learning agents, designing reward functions and action spaces, integrating control systems for robotic platforms, and evaluating the learned policies in various robotic tasks.",
+      },
+      {
+        title: "Designing a Smart Campus Management System for Higher Education Institutions",
+        description: "This capstone research focuses on designing a smart campus management system that leverages IoT technology, data analytics, and automation to improve operational efficiency, campus safety, andthe overall student experience in higher education institutions.",
+        languages: ["Java", "Python"],
+        implementation: "The implementation includes deploying IoT devices for campus monitoring, developing analytics dashboards for data visualization, integrating student information systems and campus facilities, and evaluating the system's impact on campus operations and student satisfaction.",
+      },
+      {
+        title: "Analyzing Social Media Data for Identifying Trends and Influencers",
+        description: "This capstone research involves analyzing social media data to identify emerging trends, influential users, and patterns of user engagement, providing valuable insights for marketing strategies and brand management.",
+        languages: ["Python", "R"],
+        implementation: "The implementation includes collecting and preprocessing social media data, performing text mining and sentiment analysis, identifying influential users using network analysis, and visualizing the findings for actionable insights.",
+      },
+      {
+        title: "Developing a Mobile App for Language Learning and Pronunciation Improvement",
+        description: "This capstone research focuses on developing a mobile application that facilitates language learning and pronunciation improvement for non-native speakers, providing interactive exercises, speech recognition, and personalized feedback.",
+        languages: ["Java", "Swift"],
+        implementation: "The implementation includes developing a mobile app with language learning modules, integrating speech recognition algorithms, providing pronunciation analysis and feedback, and tracking user progress and performance.",
+      },
+      {
+        title: "Designing a Smart Parking System for Efficient Parking Space Management",
+        description: "This capstone research aims to design a smart parking system that utilizes sensors, data analytics, and mobile applications to optimize parking space management, reduce traffic congestion, and enhance user convenience.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes deploying parking sensors, developing algorithms for real-time parking space availability prediction, integrating mobile apps for parking guidance, and analyzing parking utilization and efficiency.",
+      },
+      {
+        title: "Exploring Natural Language Processing for Automated Document Summarization",
+        description: "This capstone research explores natural language processing techniques for automated document summarization, aiming to develop models that can generate concise summaries from large textual documents, improving information retrieval and comprehension.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes preprocessing textual data, applying natural language processing algorithms such as text summarization or topic modeling, and evaluating the generated summaries' coherence and informativeness.",
+      },
+      {
+        title: "Developing an Intelligent Fire Detection and Alert System Using Image Processing",
+        description: "This capstone research involves developing an intelligent fire detection and alert system that utilizes image processing techniques to identify and notify potential fire incidents in real-time, enhancing fire safety in buildings and environments.",
+        languages: ["Python", "OpenCV"],
+        implementation: "The implementation includes capturing and analyzing video or image data, applying image processing algorithms for fire detection, integrating fire alarm systems or notifications, and evaluating the system's accuracy and response time.",
+      },
+      {
+        title: "Investigating the Use of Machine Learning in Medical Image Analysis for Disease Diagnosis",
+        description: "This capstone research investigates the application of machine learning techniques in medical image analysis for disease diagnosis, aiming to develop models that can assist healthcare professionals in accurate and efficient diagnosis from medical images.",
+        languages: ["Python", "TensorFlow"],
+        implementation: "The implementation involves collecting and preprocessing medical image data, training machine learning models such as convolutional neural networks (CNN) or recurrent neural networks (RNN), and evaluating the models' performance in disease classification or detection.",
+      },
+      {
+        title: "Designing a Recommender System for Personalized Book Recommendations",
+        description: "This capstone research focuses on designing a recommender system that provides personalized book recommendations to users based on their reading preferences, genre interests, and similar user profiles.",
+        languages: ["Python"],
+        implementation: "The implementation includes building recommendation algorithms such as collaborative filtering or content-based filtering, analyzing book metadata and user data, and evaluating the system's recommendation accuracy and user satisfaction.",
+      },
+      {
+        title: "Improving Energy Efficiency in Buildings through Smart Energy Management Systems",
+        description: "This capstone research aims to improve energy efficiency in buildings by developing smart energy management systems that monitor and optimize energy usage, leveraging IoT technology, data analytics, and control algorithms.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes deploying energy sensors and meters, developing algorithms for energy consumption analysis and optimization, integrating with building automation systems, and evaluating the system's energy-saving capabilities.",
+      },
+      {
+        title: "Exploring Machine Learning Techniques for Credit Card Fraud Detection",
+        description: "This capstone research explores machine learning techniques for credit card fraud detection, aiming to develop models that can accurately identify fraudulent transactions and prevent financial losses for cardholders and merchants.",
+        languages: ["Python", "R"],
+        implementation: "The implementation involves collecting and preprocessing credit card transaction data, training machine learning models such as anomaly detection or ensemble methods, and evaluating the models' fraud detection performance and efficiency.",
+      },
+      {
+        title: "Developing an Intelligent Traffic Management System for Smart Cities",
+        description: "This capstone research focuses on developing an intelligent trafficmanagement system that utilizes data analytics, machine learning, and real-time monitoring to optimize traffic flow, reduce congestion, and improve transportation efficiency in smart cities.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes deploying traffic sensors and cameras, developing algorithms for traffic flow prediction and optimization, integrating with traffic control infrastructure and navigation systems, and evaluating the system's impact on traffic conditions and transportation outcomes.",
+      },
+      {
+        title: "Designing a Virtual Reality Simulation for Training Medical Professionals in Surgical Procedures",
+        description: "This capstone research involves designing and developing a virtual reality simulation platform that provides realistic training scenarios for medical professionals, enhancing their skills and proficiency in surgical procedures and techniques.",
+        languages: ["Unity", "C#"],
+        implementation: "The implementation includes developing virtual surgical environments, integrating realistic haptic feedback and motion tracking, designing interactive surgical training modules, and evaluating the simulation's effectiveness in skill acquisition and performance improvement.",
+      },
+      {
+        title: "Investigating Deep Learning Approaches for Natural Language Understanding and Dialogue Systems",
+        description: "This capstone research investigates the application of deep learning techniques for natural language understanding and dialogue systems, aiming to develop models that can comprehend and generate human-like responses in conversational contexts.",
+        languages: ["Python", "TensorFlow"],
+        implementation: "The implementation involves training deep learning models such as recurrent neural networks (RNN) or transformer models, developing natural language understanding components, and evaluating the models' performance in dialogue generation and conversational tasks.",
+      },
+      {
+        title: "Developing an Intelligent Tutoring System for Mathematics Education",
+        description: "This capstone research involves developing an intelligent tutoring system that provides personalized mathematics education, assisting students in learning and understanding mathematical concepts, solving problems, and tracking their progress.",
+        languages: ["Java", "Python"],
+        implementation: "The implementation includes developing interactive mathematics modules, analyzing student performance and learning patterns, providing personalized feedback and hints, and evaluating the system's effectiveness in supporting mathematics education.",
+      },
+      {
+        title: "Designing a Recommendation System for Personalized Health and Fitness Recommendations",
+        description: "This capstone research focuses on designing a recommendation system that provides personalized health and fitness recommendations to individuals based on their health goals, preferences, and activity levels.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes building recommendation algorithms for health and fitness recommendations, integrating wearable devices or health data sources, and evaluating the system's ability to provide relevant and effective recommendations.",
+      },
+      {
+        title: "Improving Road Safety Using Vehicle-to-Infrastructure (V2I) Communication",
+        description: "This capstone research aims to improve road safety by developing a vehicle-to-infrastructure communication system that enables real-time exchange of data between vehicles and traffic infrastructure, providing advanced warning systems and accident prevention mechanisms.",
+        languages: ["Python", "C++"],
+        implementation: "The implementation includes designing communication protocols, developing V2I communication modules, integrating with traffic control systems and sensors, and evaluating the system's effectiveness in improving road safety.",
+      },
+      {
+        title: "Exploring Machine Learning for Cyber Threat Intelligence and Intrusion Detection",
+        description: "This capstone research explores the application of machine learning techniques for cyber threat intelligence and intrusion detection, aiming to develop models that can analyze network traffic data, detect anomalous behavior, and identify potential security threats.",
+        languages: ["Python"],
+        implementation: "The implementation involves collecting and preprocessing network traffic data, training machine learning models such as anomaly detection or deep learning algorithms, and evaluating the models' performance in detecting cyber threats and intrusions.",
+      },
+      {
+        title: "Designing a Virtual Reality Training Platform for Emergency Response and Disaster Management",
+        description: "This capstone research involves designing a virtual reality training platform that provides realistic simulations of emergency response and disaster scenarios, allowing emergency responders to practice decision-making, coordination, and rescue techniques in a safe and controlled environment.",
+        languages: ["Unity", "C#"],
+        implementation: "The implementation includes developing virtual reality environments, integrating realistic physics and simulations, designing interactive emergency response scenarios, and evaluating the training platform's effectiveness in improving emergency response preparedness.",
+      },
+      {
+        title: "Investigating the Use of Machine Learning in Biomedical Image Analysis for Disease Diagnosis",
+        description: "This capstone research investigates the application of machine learning techniques in biomedical image analysis for disease diagnosis, aiming to develop models that can assist healthcare professionals in accurate and efficient diagnosis from medical images.",
+        languages: ["Python", "TensorFlow"],
+        implementation: "The implementation involves collecting and preprocessing biomedical image data, training machine learning models such as convolutional neural networks (CNN) or recurrent neural networks (RNN), and evaluating the models' performance in disease classification or detection.",
+      },
+      {
+        title: "Developing an Intelligent Personal Assistant for Smart Homes",
+        description: "This capstone research involves developing an intelligent personal assistant that can control and manage various smart devices in a smart home environment, providing voice-activated commands, automation routines, and personalized assistance.",
+        languages: ["Python", "JavaScript"],
+        implementation: "The implementation includes developing natural language processing and speech recognition components, integrating with smart home devices and platforms, and evaluating the assistant's performance in understanding user commands and providing accurate responses.",
+      },
+      {
+        title: "Designing a Recommender System for Personalized Online Course Recommendations",
+        description: "This capstone research focuses on designing a recommender system that provides personalized online course recommendations to learners based on their interests, learning goals, and previous course history.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes building recommendation algorithms foronline course recommendations, analyzing course metadata and learner data, and evaluating the system's ability to suggest relevant and engaging courses to individual learners.",
+      },
+      {
+        title: "Improving Healthcare Services Using Internet of Things (IoT) and Data Analytics",
+        description: "This capstone research aims to improve healthcare services by leveraging Internet of Things (IoT) technology and data analytics to monitor patient health, optimize resource allocation, and enhance healthcare delivery.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes deploying IoT devices for patient monitoring, collecting and analyzing health data, developing algorithms for predictive analytics and resource optimization, and evaluating the impact on healthcare outcomes and efficiency.",
+      },
+      {
+        title: "Exploring Machine Learning Techniques for Emotion Recognition from Facial Expressions",
+        description: "This capstone research explores machine learning techniques for emotion recognition from facial expressions, aiming to develop models that can accurately classify and understand human emotions based on facial image data.",
+        languages: ["Python", "TensorFlow"],
+        implementation: "The implementation involves collecting and preprocessing facial expression data, training machine learning models such as convolutional neural networks (CNN) or recurrent neural networks (RNN), and evaluating the models' performance in emotion recognition tasks.",
+      },
+      {
+        title: "Designing a Recommendation System for Personalized Restaurant Recommendations",
+        description: "This capstone research focuses on designing a recommendation system that provides personalized restaurant recommendations to users based on their culinary preferences, dietary restrictions, and user reviews.",
+        languages: ["Python"],
+        implementation: "The implementation includes building recommendation algorithms such as collaborative filtering or content-based filtering, integrating restaurant metadata and user data, and evaluating the system's recommendation accuracy and user satisfaction.",
+      },
+      {
+        title: "Improving Mental Health Support through AI-Powered Chatbots",
+        description: "This capstone research aims to improve mental health support by developing AI-powered chatbots that can provide empathetic conversations, emotional support, and resources for individuals experiencing mental health issues.",
+        languages: ["Python", "JavaScript"],
+        implementation: "The implementation includes developing natural language processing models, integrating mental health resources and techniques, training the chatbot with empathetic responses, and evaluating the chatbot's effectiveness in providing mental health support.",
+      },
+      {
+        title: "Developing a Recommender System for Personalized Travel Recommendations",
+        description: "This capstone research involves developing a recommender system that provides personalized travel recommendations to individuals based on their preferences, travel history, and similar user profiles.",
+        languages: ["Python", "Java"],
+        implementation: "The implementation includes building recommendation algorithms for travel recommendations, analyzing travel metadata and user data, and evaluating the system's ability to suggest relevant and enjoyable travel destinations.",
+      }
+    ];
+
+    var generatedTitles = [];
+    var numGenerated = 0;
+    var outputTitle = document.getElementById('output-title');
+    var outputDescription = document.getElementById('output-description');
+    var outputLanguages = document.getElementById('output-languages');
+    var outputImplementation = document.getElementById('output-implementation');
+    var outputNumGenerated = document.getElementById('output-num-generated');
+
+    function generateTitle() {
+      if (titles.length === 0) {
+        outputTitle.textContent = "No titles available";
+        outputDescription.textContent = "";
+        outputLanguages.textContent = "";
+        outputImplementation.textContent = "";
+        return;
+      }
+
+      var index = Math.floor(Math.random() * titles.length);
+      var title = titles[index];
+
+      outputTitle.textContent = title.title;
+      outputDescription.textContent = title.description;
+      outputLanguages.textContent = "Programming Languages: " + title.languages.join(", ");
+      outputImplementation.textContent = "Implementation: " + title.implementation;
+
+      generatedTitles.push(title);
+      titles.splice(index, 1);
+      numGenerated++;
+      outputNumGenerated.textContent = numGenerated.toString();
+    }
+
+    function toggleDarkMode() {
+      var body = document.body;
+      var modeIcon = document.getElementById('mode-icon');
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        modeIcon.innerHTML = '&#x263C;';
+      } else {
+        modeIcon.innerHTML = '&#x1F31E;';
+      }
+    }
+  </script>
+</body>
+</html>
